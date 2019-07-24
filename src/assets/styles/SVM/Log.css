@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Nixie+One');
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+.log {
+    box-sizing: border-box;
+    position: fixed;
+    margin-right: 30px;
+    margin-top: 60px;
+    right: 0;
+    top: 0;
+    background-color: rgba(122, 121, 120, 0.2);
+    width: 570px;
+    height: 550px;
+    text-align: left;
+    color: white;
+    border-radius: 3px;
+    font-family: 'Courier New', sans-serif;
+    padding: 20px;
+    border: solid white 1px;
+    z-index: 100;
+}
+
+.log p {
+    font-size: 0.7rem;
+    color: #8e96a8;
+}
+
+.log b {
+    color: white;
+}
+
+.lists {
+    width: 200px;
+    position: absolute;
+    left: 70%;
+    top: 40%;
+    transform: translate(-50%,-50%);
+}
+
+.lists select {
+    width: 100%;
+}
+
+.lists div{
+    margin-bottom: 70px;
+}
+
+.inputs {
+    width: 400px;
+    position: absolute;
+    left: 50%;
+    top: 430px;
+    transform: translate(-50%,-50%);
+}
+
+.inputs input {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.log h2{
+    text-align: center;
+}
