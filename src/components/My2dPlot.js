@@ -34,11 +34,5 @@ class My2dPlot extends React.Component {
 }
 
 export default My2dPlot;
-/*
-                    <Scatter name='db-1' data={positiveSpace} fill='lightblue' shape='square'/>
-                    <Scatter name='db-1' data={negativeSpace} fill='indianred' shape='square'/>
- */
-
-
 
 // TODO add decision boundary

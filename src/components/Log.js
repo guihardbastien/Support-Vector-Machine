@@ -9,7 +9,8 @@ class Log extends Component {
         this.state = {
             C: 1,
             sigma: 15,
-            kernel: 'RBF'
+            kernel: 'RBF',
+            shape: "CIRCULAR"
         };
     }
 
@@ -21,22 +22,27 @@ class Log extends Component {
         this.setState({sigma: event.target.value});
     }
 
+    updateShape(event) {
+        this.setState({shape: event.target.value});
+    }
+
     handleSubmit() {
-        this.props.update(this.state.C, this.state.kernel, this.state.sigma);
+        this.props.update(this.state.shape, this.state.C, this.state.kernel, this.state.sigma);
     }
 
     render() {
-        let datasetTypes = ['CIRCULAR'];
+        let datasetTypes = ['CIRCULAR','LINEAR'];
         let kernelTypes = ['RBF'];
 
         return (
             <div className="log">
-                <h2>C = {this.props.info.C} | Sigma = {this.props.info.RBFSigma} | Kernel = {this.props.info.kernel}</h2>
+                <h2>C = {this.props.info.C} | Sigma = {this.props.info.RBFSigma} | Kernel
+                    = {this.props.info.kernel}</h2>
                 <My2dPlot SVM={this.props.SVM}/>
                 <div className='lists'>
                     <div>
                         <p>Dataset</p>
-                        <select className="data">
+                        <select onChange={this.updateShape.bind(this)} className="data">
                             {datasetTypes.map(type => {
                                 return <option>{type}</option>
                             })}
@@ -53,9 +59,9 @@ class Log extends Component {
                 </div>
                 <div className='inputs'>
                     <p>C value </p>
-                    <input onChange={this.updateC.bind(this)} className='Cvar'/>
+                    <input onChange={this.updateC.bind(this)} className='Cvar' required/>
                     <p>RBF SIGMA value </p>
-                    <input onChange={this.updateSigma.bind(this)} className='RBFSigma'/>
+                    <input onChange={this.updateSigma.bind(this)} className='RBFSigma' required/>
                     <button onClick={this.handleSubmit.bind(this)}>Submit</button>
                 </div>
             </div>

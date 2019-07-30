@@ -1,3 +1,5 @@
+import {randomInt} from "./utils/Utils";
+
 class SVM {
 
     _data = [];
@@ -11,8 +13,10 @@ class SVM {
     _tol = 0.0001;
     _C = 5;
 
-    constructor(C, kernel, RBFSigma) {
-        this.generateNonLinData(100);
+    constructor(data, labels, C, kernel, RBFSigma) {
+        //this.generateNonLinData(100);
+        this._data = data;
+        this._labels = labels;
         this._kernel = kernel;
         this._C = C;
         this._RBFSigma = RBFSigma;
@@ -21,51 +25,6 @@ class SVM {
             this._alpha.push(0);
         }
         this.sequentialMinimalOptimization();
-    }
-
-    static randomFloat(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.random() * (max - min) + min;
-    }
-
-    // max excluded
-    static randomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max) - 1;
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
-
-    // generates data by pairs
-    // TODO switch cases for datatypes
-    generateNonLinData(total) {
-
-        //radius
-        let circle_r = 10;
-        //coordinates of the center of the circle
-        let circle_x = 50;
-        let circle_y = 50;
-
-        for (let i = 0; i < total; i++) {
-            //even data distribution inside circles
-	    //TODO use factory design pattern & use immutable variables
-
-            let alpha = 2 * Math.PI * Math.random();
-
-            let r = circle_r * Math.sqrt(SVM.randomFloat(6, 20));
-            let x1 = r * Math.cos(alpha) + circle_x;
-            let x2 = r * Math.sin(alpha) + circle_y;
-
-            this._data.push([x1, x2]);
-            this._labels.push(-1);
-
-            r = circle_r * Math.sqrt(SVM.randomFloat(0, 3));
-            x1 = r * Math.cos(alpha) + circle_x;
-            x2 = r * Math.sin(alpha) + circle_y;
-
-            this._data.push([x1, x2]);
-            this._labels.push(1);
-        }
     }
 
     sequentialMinimalOptimization() {
@@ -79,7 +38,7 @@ class SVM {
                     || (this._labels[i] * Ei > this._tol && this._alpha[i] > 0)) {
                     let j = i;
                     while (j === i) {
-                        j = SVM.randomInt(0, this._N);
+                        j = randomInt(0, this._N);
                     }
                     let Ej = this.dualClassification(this._data[j]) - this._labels[j];
                     let ai = this._alpha[i], aj = this._alpha[j];
@@ -138,12 +97,19 @@ class SVM {
 
     kernel(Xi, Xj) {
 
-        if (this._kernel === "RBF") {
-            return this.gaussianKernel(Xi, Xj)
-        } else if (this._kernel === "LINEAR") {
-            return this.linearKernel(Xi, Xj)
-        } else {
-            return "ILLEGAL KERNEL"
+        switch (this._kernel) {
+
+            case "RBF":
+                return this.gaussianKernel(Xi, Xj);
+
+            case "LINEAR":
+                return this.linearKernel(Xi, Xj);
+
+            case "TANH":
+                return this.tanhKernel(Xi, Xj);
+
+            default:
+                return "ILLEGAL KERNEL";
         }
     }
 
@@ -158,6 +124,10 @@ class SVM {
     }
 
     linearKernel(Xi, Xj) {
+        //TODO later
+    }
+
+    tanhKernel(Xi, Xj) {
         //TODO later
     }
 
@@ -188,6 +158,5 @@ class SVM {
 
 export default SVM;
 
-//TODO add input parameters (dataset type or data )
-//TODO refactor design patterns
-//TODO separate data generation in utils and plug it in constructor 
+//TODO comments
+

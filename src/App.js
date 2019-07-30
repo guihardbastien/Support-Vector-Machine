@@ -4,6 +4,7 @@ import My3dPlot from "./components/My3dPlot";
 import Log from "./components/Log";
 import Header from "./components/Header";
 import './assets/styles/App.css';
+import GenerateData from "./logic/utils/GenerateData";
 
 class App extends React.Component {
 
@@ -13,22 +14,30 @@ class App extends React.Component {
             C: 5,
             kernel: "RBF",
             RBFSigma: 15,
-            SVM: null
+            SVM: null,
+            dataset: null,
+            datasetShape: "CIRCULAR"
         };
     }
 
     componentWillMount() {
-        let MySVM = new SVM(this.state.C, this.state.kernel, this.state.RBFSigma);
-        this.setState({SVM: MySVM});
+        let generatedData = new GenerateData("CIRCULAR", 50);
+        let MySVM = new SVM(generatedData.data, generatedData.labels, this.state.C, this.state.kernel, this.state.RBFSigma);
+        this.setState({SVM: MySVM, dataset: generatedData});
     }
 
-    updateSVM(C, kernel, RBFSigma) {
-        let newSVM = new SVM(C, kernel, RBFSigma);
+    updateSVM(shape, C, kernel, RBFSigma) {
+
+        let generatedData = new GenerateData(shape, 50);
+
+        let newSVM = new SVM(generatedData.data, generatedData.labels, C, kernel, RBFSigma);
         this.setState({
             C: C,
             kernel: kernel,
             RBFSigma: RBFSigma,
-            SVM: newSVM
+            SVM: newSVM,
+            dataset: generatedData,
+            datasetShape: shape
         })
     }
 
