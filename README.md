@@ -6,6 +6,6 @@
 ## Application
 
 ## Ressources
-*https://med.nyu.edu/chibi/sites/default/files/chibi/Final.pdf
-*https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-98-14.pdf
-*http://cs229.stanford.edu/materials/smo.pdf
+* https://med.nyu.edu/chibi/sites/default/files/chibi/Final.pdf
+* https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-98-14.pdf
+* http://cs229.stanford.edu/materials/smo.pdf
