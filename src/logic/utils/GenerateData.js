@@ -88,8 +88,3 @@ class GenerateData {
 
 export default GenerateData;
 
-//TODO add input parameters (dataset type or data )
-//TODO refactor design patterns
-//TODO separate data generation in utils and plug it in constructor
-//TODO comments
-

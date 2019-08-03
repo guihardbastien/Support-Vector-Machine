@@ -14,7 +14,6 @@ class SVM {
     _C = 5;
 
     constructor(data, labels, C, kernel, RBFSigma) {
-        //this.generateNonLinData(100);
         this._data = data;
         this._labels = labels;
         this._kernel = kernel;
@@ -34,6 +33,7 @@ class SVM {
             let didAlphaChanged = 0;
             for (let i = 0; i < this._N; i++) {
                 let Ei = this.dualClassification(this._data[i]) - this._labels[i];
+                // find data that violates KKT conditions
                 if ((this._labels[i] * Ei < -this._tol && this._alpha[i] < this._C)
                     || (this._labels[i] * Ei > this._tol && this._alpha[i] > 0)) {
                     let j = i;
