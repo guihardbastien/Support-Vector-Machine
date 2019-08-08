@@ -2,8 +2,12 @@
 
 ![interface](https://raw.githubusercontent.com/guihardbastien/Support-Vector-Machine/master/doc/SVM-IHM.gif)
 ## Deployment
+```
+git clone https://github.com/guihardbastien/Support-Vector-Machine.git && cd Support-Vector-Machine && npm install && npm start
+```
+## SMO Algorithm
 
-## Application
+TODO
 
 ## Ressources
 * https://med.nyu.edu/chibi/sites/default/files/chibi/Final.pdf
