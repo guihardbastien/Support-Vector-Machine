@@ -1,4 +1,4 @@
-import {randomInt} from "./utils/Utils";
+import {randomInt} from "./utils/Random";
 
 class SVM {
 
@@ -101,20 +101,17 @@ class SVM {
 
             case "RBF":
                 return this.gaussianKernel(Xi, Xj);
-
             case "LINEAR":
                 return this.linearKernel(Xi, Xj);
-
             case "TANH":
                 return this.tanhKernel(Xi, Xj);
-
             default:
                 return "ILLEGAL KERNEL";
         }
     }
 
     gaussianKernel(Xi, Xj) {
-
+        
         let s = 0;
         //w transpose x
         for (let q = 0; q < Xi.length; q++) {
@@ -132,6 +129,7 @@ class SVM {
     }
 
     dualClassification(input) {
+
         let f = this._b;
         for (let i = 0; i < this._N; i++) {
             f += this._alpha[i] * this._labels[i] * this.kernel(input, this._data[i]);

@@ -1,4 +1,4 @@
-import {randomFloat} from "./Utils";
+import {randomFloat} from "./Random";
 
 class GenerateData {
 
