@@ -3,8 +3,8 @@ import SVM from '../logic/SVM';
 import My3dPlot from "../components/My3dPlot";
 import Log from "../components/Log";
 import Header from "../components/Header";
-import '../assets/styles/App.css';
 import GenerateData from "../logic/utils/GenerateData";
+import '../assets/styles/App.css';
 
 class SVMPage extends React.Component {
 
@@ -56,4 +56,3 @@ class SVMPage extends React.Component {
 export default SVMPage;
 
 //TODO loading SVG
-//TODO transfer to SVM PAGE

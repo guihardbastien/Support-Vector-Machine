@@ -14,16 +14,21 @@ class SVM {
     _b = 0;
     _N = 0;
 
-    constructor(data, labels, C, kernel, RBFSigma) {
+    constructor(data, labels, C, kernel, RBFSigma = 15) {
+
+        let sigma = Number(RBFSigma);
+        isNaN(sigma) ? this._RBFSigma = 15 : this._RBFSigma = RBFSigma;
+
         this._data = data;
         this._labels = labels;
         this._kernel = kernel;
         this._C = C;
-        this._RBFSigma = RBFSigma;
         this._N = this._data.length;
+
         for (let i = 0; i < this._N; i++) {
             this._alpha.push(0);
         }
+
         this.sequentialMinimalOptimization();
     }
 
@@ -106,7 +111,7 @@ class SVM {
 
         switch (this._kernel) {
             case "RBF":
-                return gaussianKernel(Xi,Xj,this._RBFSigma);
+                return gaussianKernel(Xi, Xj, this._RBFSigma);
             default:
                 return "ILLEGAL KERNEL";
         }
@@ -136,5 +141,3 @@ class SVM {
 }
 
 export default SVM;
-
-//TODO comments

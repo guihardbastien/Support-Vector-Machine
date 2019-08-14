@@ -71,4 +71,3 @@ class Log extends Component {
 
 export default Log;
 
-// TODO handle lists
