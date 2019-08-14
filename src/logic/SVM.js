@@ -1,4 +1,5 @@
 import {randomInt} from "./utils/Random";
+import {gaussianKernel} from "./Kernels";
 
 class SVM {
 
@@ -6,12 +7,12 @@ class SVM {
     _labels = [];
     _kernel = "RBF";
     _RBFSigma = 15;
-    _b = 0;
-    _N = 0;
     _alpha = [];
     _maxPasses = 20;
     _tol = 0.0001;
     _C = 5;
+    _b = 0;
+    _N = 0;
 
     constructor(data, labels, C, kernel, RBFSigma) {
         this._data = data;
@@ -25,6 +26,12 @@ class SVM {
         }
         this.sequentialMinimalOptimization();
     }
+
+    /*
+    * All documentation on SMO algorithm can be found here:
+    * https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-98-14.pdf
+    * http://cs229.stanford.edu/materials/smo.pdf
+     */
 
     sequentialMinimalOptimization() {
 
@@ -98,36 +105,14 @@ class SVM {
     kernel(Xi, Xj) {
 
         switch (this._kernel) {
-
             case "RBF":
-                return this.gaussianKernel(Xi, Xj);
-            case "LINEAR":
-                return this.linearKernel(Xi, Xj);
-            case "TANH":
-                return this.tanhKernel(Xi, Xj);
+                return gaussianKernel(Xi,Xj,this._RBFSigma);
             default:
                 return "ILLEGAL KERNEL";
         }
     }
 
-    gaussianKernel(Xi, Xj) {
-        
-        let s = 0;
-        //w transpose x
-        for (let q = 0; q < Xi.length; q++) {
-            s += (Xi[q] - Xj[q]) * (Xi[q] - Xj[q]);
-        }
-        return Math.exp(-s / (2 * this._RBFSigma * this._RBFSigma))
-    }
-
-    linearKernel(Xi, Xj) {
-        //TODO later
-    }
-
-    tanhKernel(Xi, Xj) {
-        //TODO later
-    }
-
+    // returns the distance between decision hyperplane and given input
     dualClassification(input) {
 
         let f = this._b;
@@ -148,13 +133,8 @@ class SVM {
     get labels() {
         return this._labels;
     }
-
-    get alpha() {
-        return this._alpha;
-    }
 }
 
 export default SVM;
 
 //TODO comments
-
